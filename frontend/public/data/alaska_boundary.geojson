@@ -1,0 +1,22 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Alaska",
+        "state_code": "AK"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-179.148909, 51.214183],
+          [-179.148909, 71.365162],
+          [-129.979506, 71.365162],
+          [-129.979506, 51.214183],
+          [-179.148909, 51.214183]
+        ]]
+      }
+    }
+  ]
+}

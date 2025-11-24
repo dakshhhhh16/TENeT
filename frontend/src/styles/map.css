@@ -1,0 +1,400 @@
+/* Map container and Leaflet integration */
+.map-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  margin: 0;
+}
+
+.leaflet-map {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+/* Map loading states */
+.map-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background-color: var(--surface-color);
+  border-radius: 0;
+  margin: 0;
+}
+
+.map-loading p {
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+}
+
+.map-error {
+  background-color: #FFEBEE;
+  color: #C62828;
+  padding: 0.75rem 1rem;
+  border-radius: 0;
+  margin: 0;
+  border-left: 4px solid #C62828;
+}
+
+/* Map info panel */
+.map-info {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+
+.map-info p {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.map-info small {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* Leaflet popup customization */
+.leaflet-popup-content-wrapper {
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.leaflet-popup-content h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--primary-color);
+  font-size: 1.125rem;
+}
+
+.leaflet-popup-content p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+/* Leaflet control styling */
+.leaflet-control {
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+.leaflet-bar a {
+  border-radius: var(--border-radius) !important;
+  transition: var(--transition);
+}
+
+.leaflet-bar a:hover {
+  background-color: var(--primary-light) !important;
+  color: white !important;
+}
+
+/* Attribution styling */
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.75rem !important;
+}
+
+/* Interactive Alaska boundary */
+.alaska-boundary-interactive {
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.alaska-boundary-interactive:hover {
+  filter: brightness(1.1);
+}
+
+/* Enhanced map info with controls */
+.map-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.map-status h4 {
+  margin: 0 0 0.25rem 0;
+  color: var(--primary-color);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.current-view {
+  margin: 0.25rem 0;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.map-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-button {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: var(--transition);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.control-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.control-button:active {
+  transform: translateY(0);
+}
+
+.regions-info {
+  padding: 0.5rem;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: var(--border-radius);
+  border-left: 3px solid var(--primary-light);
+}
+
+.regions-info small {
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+/* Enhanced map controls */
+.world-button {
+  background: linear-gradient(135deg, #607D8B 0%, #455A64 100%);
+}
+
+.world-button:hover {
+  background: linear-gradient(135deg, #546E7A 0%, #37474F 100%);
+}
+
+/* Navigation info styling */
+.navigation-info {
+  padding: 0.5rem;
+  background: rgba(96, 125, 139, 0.1);
+  border-radius: var(--border-radius);
+  border-left: 3px solid #607D8B;
+}
+
+.navigation-info small {
+  color: #455A64;
+  font-weight: 500;
+}
+
+/* Zoom info styling */
+.zoom-info {
+  display: block;
+  color: var(--text-secondary);
+  font-family: monospace;
+  font-size: 0.75rem;
+  margin: 0.25rem 0;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+}
+
+.interaction-hint {
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+/* Custom region markers */
+.custom-div-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.custom-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  transition: var(--transition);
+  z-index: 1000;
+}
+
+.custom-marker:hover {
+  transform: scale(1.1) translateY(-2px);
+  z-index: 1001;
+}
+
+.marker-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5));
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+}
+
+.marker-label {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Enhanced visibility for overview zoom levels */
+.custom-marker[data-zoom="4"] .marker-icon,
+.custom-marker[data-zoom="5"] .marker-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+  font-size: 1.2rem;
+}
+
+.custom-marker[data-zoom="4"] .marker-label,
+.custom-marker[data-zoom="5"] .marker-label {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.4rem;
+  font-weight: 700;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.custom-marker.city .marker-label {
+  background: rgba(33, 150, 243, 0.9);
+  color: white;
+}
+
+.custom-marker.remote .marker-label {
+  background: rgba(255, 152, 0, 0.9);
+  color: white;
+}
+
+.custom-marker.island .marker-label {
+  background: rgba(0, 150, 136, 0.9);
+  color: white;
+}
+
+/* Enhanced popup styles */
+.alaska-popup, .region-popup {
+  text-align: center;
+  min-width: 200px;
+}
+
+.alaska-popup h3, .region-popup h4 {
+  margin: 0 0 0.75rem 0;
+  color: var(--primary-color);
+  font-size: 1.125rem;
+}
+
+.alaska-popup p, .region-popup p {
+  margin: 0.5rem 0;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.explore-button, .explore-region-btn {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, #1565C0 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  transition: var(--transition);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.explore-button:hover, .explore-region-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+/* Map container enhancements for smooth animations */
+.leaflet-map {
+  transition: var(--transition);
+}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+  transition-duration: 0.5s !important;
+}
+
+/* Loading animation enhancement */
+.map-loading {
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Responsive design updates */
+@media (max-width: 768px) {
+  .map-container {
+    height: calc(100vh - 100px);
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .map-info {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    padding: 0.75rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .map-controls {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  
+  .marker-label {
+    font-size: 0.6rem;
+    padding: 0.125rem 0.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-container {
+    height: calc(100vh - 80px);
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .map-info {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    margin: 0;
+    flex-direction: column;
+  }
+  
+  .custom-marker:hover {
+    transform: scale(1.05);
+  }
+  
+  .marker-icon {
+    font-size: 1.25rem;
+  }
+}
