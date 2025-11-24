@@ -1,11 +1,16 @@
 # Dependencies
 node_modules/
+package-lock.json
 .pnp
 .pnp.js
 
 # Production build
 dist/
 build/
+.next/
+.nuxt/
+.vuepress/dist/
+.serverless/
 
 # Environment variables
 .env
@@ -49,17 +54,11 @@ jspm_packages/
 # TypeScript cache
 *.tsbuildinfo
 
-# Optional eslint cache
-.eslintcache
-
 # Microbundle cache
 .rpt2_cache/
 .rts2_cache_cjs/
 .rts2_cache_es/
 .rts2_cache_umd/
-
-# Optional REPL history
-.node_repl_history
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
@@ -73,3 +72,19 @@ jspm_packages/
 
 # Vite
 .vite
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

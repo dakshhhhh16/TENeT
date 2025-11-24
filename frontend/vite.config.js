@@ -8,8 +8,5 @@ export default defineConfig({
     port: 5173,
     host: true
   },
-  define: {
-    // Define environment variables
-    __API_URL__: JSON.stringify(process.env.VITE_API_URL || 'http://localhost:5000')
-  }
+  // Environment variables are accessed via import.meta.env.VITE_*
 })

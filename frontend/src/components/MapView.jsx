@@ -53,7 +53,7 @@ const AlaskaRegionMarkers = ({ regions, onRegionClick, currentZoom }) => {
     <>
       {regions.map((region, index) => (
         <Marker
-          key={`${index}-${currentZoom}`} // Re-render when zoom changes
+          key={`${region.name}-${index}`} // Stable key based on region name
           position={region.coords}
           icon={createCustomIcon(region.type, region.name, currentZoom)}
           eventHandlers={{
@@ -167,35 +167,36 @@ const MapView = () => {
   // Load Alaska GeoJSON data
   useEffect(() => {
     const loadAlaskaBoundary = async () => {
+      // Define fallback data once to avoid duplication
+      const fallbackData = {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            properties: {
+              name: "Alaska",
+              state_code: "AK"
+            },
+            geometry: {
+              type: "Polygon",
+              coordinates: [[
+                [-179.148909, 51.214183],
+                [-179.148909, 71.365162],
+                [-129.979506, 71.365162],
+                [-129.979506, 51.214183],
+                [-179.148909, 51.214183]
+              ]]
+            }
+          }
+        ]
+      }
+
       try {
         // In production, this would come from your API or public folder
-        // For now, we'll use a simplified Alaska boundary
         const response = await fetch('/data/alaska_boundary.geojson')
         
         if (!response.ok) {
-          // Fallback to a simple Alaska boundary if file not found
-          const fallbackData = {
-            type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                properties: {
-                  name: "Alaska",
-                  state_code: "AK"
-                },
-                geometry: {
-                  type: "Polygon",
-                  coordinates: [[
-                    [-179.148909, 51.214183],
-                    [-179.148909, 71.365162],
-                    [-129.979506, 71.365162],
-                    [-129.979506, 51.214183],
-                    [-179.148909, 51.214183]
-                  ]]
-                }
-              }
-            ]
-          }
+          console.warn('GeoJSON file not found, using fallback data.')
           setAlaskaBoundary(fallbackData)
         } else {
           const data = await response.json()
@@ -204,30 +205,6 @@ const MapView = () => {
       } catch (err) {
         console.warn('Failed to load Alaska boundary:', err.message)
         setError('Failed to load Alaska boundary data')
-        
-        // Use fallback data even on error
-        const fallbackData = {
-          type: "FeatureCollection",
-          features: [
-            {
-              type: "Feature",
-              properties: {
-                name: "Alaska",
-                state_code: "AK"
-              },
-              geometry: {
-                type: "Polygon",
-                coordinates: [[
-                  [-179.148909, 51.214183],
-                  [-179.148909, 71.365162],
-                  [-129.979506, 71.365162],
-                  [-129.979506, 51.214183],
-                  [-179.148909, 51.214183]
-                ]]
-              }
-            }
-          ]
-        }
         setAlaskaBoundary(fallbackData)
       } finally {
         setLoading(false)
@@ -235,9 +212,7 @@ const MapView = () => {
     }
 
     loadAlaskaBoundary()
-  }, [])
-
-  // Handle Alaska boundary interactions
+  }, [])  // Handle Alaska boundary interactions
   const onEachFeature = (feature, layer) => {
     if (feature.properties && feature.properties.name) {
       // Enhanced popup with exploration option
@@ -247,12 +222,7 @@ const MapView = () => {
           <p><strong>State Code:</strong> ${feature.properties.state_code || 'N/A'}</p>
           <p><strong>Area:</strong> 665,384 sq miles</p>
           <p><strong>Population:</strong> ~733,000</p>
-          <button 
-            onclick="window.exploreAlaska()" 
-            class="explore-button"
-          >
-            🔍 Explore Alaska
-          </button>
+          <p class="explore-hint">💡 Click anywhere on Alaska to explore regions</p>
         </div>
       `)
 
@@ -341,13 +311,7 @@ const MapView = () => {
     })
   }
 
-  // Add global function for popup button
-  useEffect(() => {
-    window.exploreAlaska = handleAlaskaExploration
-    return () => {
-      delete window.exploreAlaska
-    }
-  }, [handleAlaskaExploration])
+  // handleAlaskaExploration is called via layer.on click event
 
   if (loading) {
     return (
